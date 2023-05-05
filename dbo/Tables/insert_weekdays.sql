@@ -6,6 +6,21 @@ FROM
 
 --I need to add new column in which it contains the coresponding day of the week
 
+ALTER TABLE bellabeat_capstone.dbo.daily_activity
+ADD Weekday_Mon_To_Sun VARCHAR(20);
+
+UPDATE bellabeat_capstone.dbo.daily_activity
+SET Weekday_Mon_To_Sun = DATENAME(WEEKDAY, ActivityDate);
+
+
+/*SQL below is too complicated so I tried to come up with a simple
+and easy one... I remember a lot of Data Analyst always say that 
+complicated code is not ideal. 
+*/
+
+/* I'll still include this here so that I can go back and
+figure out the blocker once I'm done with my capstone :) */
+
 SELECT
     DATEPART(WEEK, ActivityDate) AS Week 
 FROM
@@ -33,13 +48,13 @@ convert the format of ActivityDate to new column with corresponding weekdays*/
 
 CREATE TABLE #Weekdays_mapping (Weekday VARCHAR(20), Weekday_Mon_To_Sun VARCHAR(20))
 INSERT INTO #Weekdays_mapping VALUES 
-('Monday', 'Monday'),
-('Tuesday', 'Tuesday'),
-('Wednesday', 'Wednesday'),
-('Thursday', 'Thursday'),
-('Friday', 'Friday'),
-('Saturday', 'Saturday'),
-('Sunday', 'Sunday');
+('Monday','Monday'),
+('Tuesday','Tuesday'),
+('Wednesday','Wednesday'),
+('Thursday','Thursday'),
+('Friday','Friday'),
+('Saturday','Saturday'),
+('Sunday','Sunday');
 
 
 -- Join the two tables together
@@ -59,14 +74,10 @@ ADD Weekday_Mon_To_Sun VARCHAR(20)
 UPDATE bellabeat_capstone.dbo.daily_activity
 SET Weekday_Mon_To_Sun = #Weekdays.Weekday
 FROM #Weekdays
-WHERE #Weekdays.Week = #Weekdays.Week;
+WHERE bellabeat_capstone.dbo.daily_activity.Weekday_Mon_To_Sun = #Weekdays.Week;
 
 -- Delete the temporary table
 DROP TABLE #Weekdays
 DROP TABLE #Weekdays_mapping
-GO;
 
--- Check the new column
-SELECT *
-FROM
-    bellabeat_capstone.dbo.daily_activity;
+
