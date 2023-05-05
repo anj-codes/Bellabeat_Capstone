@@ -19,12 +19,13 @@ FROM
     bellabeat_capstone.dbo.daily_activity;
 
 
--- Will create a temporary table to combine may two SQL statements
+-- Will create a temporary table to combine my two SQL statements
 SELECT
     DATEPART(WEEK, ActivityDate) AS Week, DATENAME(WEEKDAY, ActivityDate) AS Weekday
 INTO #Weekdays
 FROM
     bellabeat_capstone.dbo.daily_activity;
+
 
 
 /*Next is I need to create a mapping table to 
@@ -50,22 +51,13 @@ JOIN #Weekdays_mapping wd ON d.Weekday = wd.Weekday;
 
 
 -- Insert new column in daily_activity table
--- Still getting error with (Weekday_Mon_To_Sun)
-INSERT INTO bellabeat_capstone.dbo.daily_activity (Weekday_Mon_To_Sun)
-SELECT Weekday
-FROM #Weekdays;
 
 
+ALTER TABLE bellabeat_capstone.dbo.daily_activity
+ADD Weekday_Mon_To_Sun VARCHAR(20) 
 
-
-
-
-
-
-
-
-
-
-
-
+UPDATE bellabeat_capstone.dbo.daily_activity
+SET Weekday_Mon_To_Sun = #Weekdays.Weekday
+FROM #Weekdays
+WHERE #Weekdays.Week = #Weekdays.Week
 
