@@ -22,9 +22,9 @@ SELECT
     Id,
     COUNT(ActivityDate) AS total_tracked,
   CASE 
-    WHEN  COUNT(ActivityDate) BETWEEN 25 AND 31 THEN 'Always'
-    WHEN  COUNT(ActivityDate) BETWEEN 11 AND 24 THEN 'Moderate'
-    WHEN  COUNT(ActivityDate) BETWEEN 0 AND 10 THEN 'Sometimes'
+    WHEN  COUNT(ActivityDate) >=25 THEN 'Always'
+    WHEN  COUNT(ActivityDate) >= 11 THEN 'Moderate'
+    WHEN  COUNT(ActivityDate) <= 10 THEN 'Sometimes'
   END AS wearing_tracker
 FROM 
     bellabeat_capstone.dbo.daily_activity
@@ -41,9 +41,9 @@ FROM
         Id,
         COUNT(ActivityDate) AS total_tracked,
         CASE 
-            WHEN COUNT(ActivityDate) BETWEEN 25 AND 31 THEN 'Always'
-            WHEN COUNT(ActivityDate) BETWEEN 11 AND 24 THEN 'Moderate'
-            WHEN COUNT(ActivityDate) BETWEEN 0 AND 10 THEN 'Sometimes'
+            WHEN  COUNT(ActivityDate) >=25 THEN 'Always'
+            WHEN  COUNT(ActivityDate) >= 11 THEN 'Moderate'
+            WHEN  COUNT(ActivityDate) <= 10 THEN 'Sometimes'
         END AS wearing_tracker
     FROM bellabeat_capstone.dbo.daily_activity
     GROUP BY Id
