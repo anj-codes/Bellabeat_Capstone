@@ -59,5 +59,14 @@ ADD Weekday_Mon_To_Sun VARCHAR(20)
 UPDATE bellabeat_capstone.dbo.daily_activity
 SET Weekday_Mon_To_Sun = #Weekdays.Weekday
 FROM #Weekdays
-WHERE #Weekdays.Week = #Weekdays.Week
+WHERE #Weekdays.Week = #Weekdays.Week;
 
+-- Delete the temporary table
+DROP TABLE #Weekdays
+DROP TABLE #Weekdays_mapping
+GO;
+
+-- Check the new column
+SELECT *
+FROM
+    bellabeat_capstone.dbo.daily_activity;
