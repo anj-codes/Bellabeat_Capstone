@@ -38,4 +38,3 @@ FROM
     GROUP BY Id
  ) subquery
  GROUP BY user_type;
-
