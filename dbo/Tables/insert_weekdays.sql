@@ -6,11 +6,29 @@ FROM
 
 --I need to add new column in which it contains the coresponding day of the week
 
+
 ALTER TABLE bellabeat_capstone.dbo.daily_activity
 ADD Weekday_Mon_To_Sun VARCHAR(20);
 
 UPDATE bellabeat_capstone.dbo.daily_activity
 SET Weekday_Mon_To_Sun = DATENAME(WEEKDAY, ActivityDate);
+
+-- I will also add new column with corresponding weekday to daily_steps and daily_sleep datasets
+
+
+ALTER TABLE bellabeat_capstone.dbo.daily_sleep
+ADD Weekday_Mon_To_Sun VARCHAR(20);
+
+UPDATE bellabeat_capstone.dbo.daily_sleep
+SET Weekday_Mon_To_Sun = DATENAME(WEEKDAY, Date);
+
+
+ALTER TABLE bellabeat_capstone.dbo.daily_steps
+ADD Weekday_Mon_To_Sun VARCHAR(20);
+
+UPDATE bellabeat_capstone.dbo.daily_steps
+SET Weekday_Mon_To_Sun = DATENAME(WEEKDAY, ActivityDay);
+
 
 
 /*SQL below is too complicated so I tried to come up with a simple
@@ -40,7 +58,6 @@ SELECT
 INTO #Weekdays
 FROM
     bellabeat_capstone.dbo.daily_activity;
-
 
 
 /*Next is I need to create a mapping table to 
