@@ -22,7 +22,7 @@ SELECT
     Id,
     COUNT(ActivityDate) AS total_tracked,
   CASE 
-    WHEN  COUNT(ActivityDate) >=25 THEN 'Always'
+    WHEN  COUNT(ActivityDate) >=25 THEN 'Consistent'
     WHEN  COUNT(ActivityDate) >= 11 THEN 'Moderate'
     WHEN  COUNT(ActivityDate) <= 10 THEN 'Sometimes'
   END AS wearing_tracker
@@ -41,7 +41,7 @@ FROM
         Id,
         COUNT(ActivityDate) AS total_tracked,
         CASE 
-            WHEN  COUNT(ActivityDate) >=25 THEN 'Always'
+            WHEN  COUNT(ActivityDate) >=25 THEN 'Consistent'
             WHEN  COUNT(ActivityDate) >= 11 THEN 'Moderate'
             WHEN  COUNT(ActivityDate) <= 10 THEN 'Sometimes'
         END AS wearing_tracker
