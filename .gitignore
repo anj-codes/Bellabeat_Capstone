@@ -1,0 +1,5 @@
+bellabeat_sql_csv/user_tracking_times.csv
+bellabeat_sql_csv/weekday_steps.csv
+bellabeat_sql_csv/weekday_asleep.csv
+bellabeat_sql_csv/user_type_activity.csv
+.DS_Store
