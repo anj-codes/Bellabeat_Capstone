@@ -2,11 +2,11 @@
 
 SELECT 
     Id,
-    AVG(TotalSteps) AS avg_totalSteps,
-    AVG(Calories) AS avg_totalCalories
+    TotalSteps,
+    Calories,
+    ActivityDate
 FROM
     bellabeat_capstone.dbo.daily_activity
-    GROUP BY Id
 
 -- tried using JOIN 
 
