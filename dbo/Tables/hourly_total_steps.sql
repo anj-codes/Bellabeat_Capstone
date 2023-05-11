@@ -16,5 +16,3 @@ FROM
     bellabeat_capstone.dbo.hourly_steps
     GROUP BY [Hour]
     ORDER BY total_hourly_steps DESC
-
-
