@@ -8,10 +8,10 @@ SELECT
     Id,
     AVG(StepTotal) avg_daily_steps,
     CASE
-        WHEN AVG(StepTotal) <=5000 THEN 'Sedentary'
-        WHEN AVG(StepTotal) <=7499 THEN 'Lightly active'
-        WHEN AVG(StepTotal) <=9999 THEN 'Fairly active'
-        WHEN AVG(StepTotal) >=10000 THEN 'Very active'
+        WHEN AVG(StepTotal) <=5000 THEN 'Inactive user'
+        WHEN AVG(StepTotal) <=7499 THEN 'Low active user'
+        WHEN AVG(StepTotal) <=9999 THEN 'Average active user'
+        WHEN AVG(StepTotal) >=10000 THEN 'Very active user'
         END AS user_type
 FROM
     bellabeat_capstone.dbo.daily_steps 
@@ -28,10 +28,10 @@ SELECT
     Id,
     AVG(StepTotal) avg_daily_steps,
     CASE
-        WHEN AVG(StepTotal) <=5000 THEN 'Sedentary'
-        WHEN AVG(StepTotal) <=7499 THEN 'Lightly active'
-        WHEN AVG(StepTotal) <=9999 THEN 'Fairly active'
-        WHEN AVG(StepTotal) >=10000 THEN 'Very active'
+        WHEN AVG(StepTotal) <=5000 THEN 'Inactive user'
+        WHEN AVG(StepTotal) <=7499 THEN 'Low active user'
+        WHEN AVG(StepTotal) <=9999 THEN 'Average active user'
+        WHEN AVG(StepTotal) >=10000 THEN 'Very active user'
         END AS user_type
 FROM
     bellabeat_capstone.dbo.daily_steps 
