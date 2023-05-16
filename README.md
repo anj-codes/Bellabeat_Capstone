@@ -125,7 +125,8 @@ After cleaning the datasets, I wanted to make sure that there is enough data for
 ```
 =SUMPRODUCT(1/COUNTIF(criteria,range))
 ```
-<img width="299" alt="Screenshot 2023-05-15 at 9 44 23 PM" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/1f543ccd-bc00-4379-87c7-7d63c315eb8c">
+<p align="center">
+    <img width="299" alt="Total users per datasets" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/1f543ccd-bc00-4379-87c7-7d63c315eb8c">
 
 We can see that weightLogInfo_merged does not have enough data to move forward with the analysis.
 
@@ -157,8 +158,10 @@ FROM
     GROUP BY Id
     ORDER BY activity_date DESC;
 ```
-<img width="284" alt="Screenshot 2023-05-16 at 8 36 16 AM" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/d3cad860-076c-4477-bab4-d487d88825f2">
+<p align="center">
+    <img width="284" alt="Tracker usage of each users" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/d3cad860-076c-4477-bab4-d487d88825f2">
 </p>
+<p align="center">
 <em>Image from Azure Data Studio</em>
 </p>
 
@@ -183,8 +186,10 @@ FROM
     bellabeat_capstone.dbo.daily_activity
     GROUP BY Id;
 ```
-<img width="437" alt="Screenshot 2023-05-16 at 8 38 20 AM" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/61b9bb16-3fc3-4479-92eb-83c26a561e57">
+<p align="center">
+    <img width="437" alt="Breakdown of user's tracker usage" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/61b9bb16-3fc3-4479-92eb-83c26a561e57">
 </p>
+<p align="center">
 <em>Image from Azure Data Studio</em>
 </p>
   
@@ -209,9 +214,10 @@ FROM
 ) subquery
 GROUP BY wearing_tracker;
 ```
-
-<img width="544" alt="Screenshot 2023-05-16 at 8 42 18 AM" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/ee0f8512-254a-4ae1-8cc8-a806a8722cd4">
+<p align="center">
+    <img width="544" alt="Pie chart for user tracking category" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/ee0f8512-254a-4ae1-8cc8-a806a8722cd4">
 </p>
+<p align="center">
 <em>Image from Tableau</em>
 </p>
 
@@ -246,8 +252,10 @@ FROM
     bellabeat_capstone.dbo.daily_steps 
     GROUP BY Id;
 ```
-<img width="452" alt="Screenshot 2023-05-16 at 8 56 30 AM" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/9297be30-2b45-4f27-aa28-ff6ed782cfbf">
+<p align="center">
+    <img width="452" alt="User type activity" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/9297be30-2b45-4f27-aa28-ff6ed782cfbf">
 </p>
+<p align="center">
 <em>Image from Azure Data Studio</em>
 </p>
 
@@ -274,12 +282,156 @@ FROM
  ) subquery
  GROUP BY user_type;
 ```
-<img width="321" alt="Screenshot 2023-05-16 at 8 57 50 AM" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/b69d755d-1604-4055-bcbd-a4c60d2c4221">
+<p align="center">
+    <img width="321" alt="Breakdown of user type activity" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/b69d755d-1604-4055-bcbd-a4c60d2c4221">
 </p>
+<p align="center">
 <em>Image from Azure Data Studio</em>
 </p>
 
 If we will split the results into two, we can say that 17 users are “Non - Low active” and 16 users are considered “Active”. 
+
+
+#### ➤Steps and Sleep per Day:
+
+Next, I want to know what day of the week the users are more active and what day they sleep more and are the users.
+
+``` SQL
+SELECT
+    AVG(TotalMinutesAsleep) as avg_daily_sleep,
+    Weekday_Mon_To_Sun
+FROM
+    bellabeat_capstone.dbo.daily_sleep
+    GROUP BY Weekday_Mon_To_Sun
+    ORDER BY 
+        CASE Weekday_Mon_To_Sun
+            WHEN 'Monday' THEN 1
+            WHEN 'Tuesday' THEN 2
+            WHEN 'Wednesday' THEN 3
+            WHEN 'Thursday' THEN 4
+            WHEN 'Friday' THEN 5
+            WHEN 'Saturday' THEN 6
+            ELSE 7  
+        END;
+```
+<p align="center">
+    <img width="427" alt="minutes_asleep_per_weekday" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/7151ae7c-8489-4573-8996-98e5936f69af">
+</p>
+<p align="center">
+<em>Image from Tableau</em>
+</p>
+
+``` SQL
+SELECT
+    AVG(StepTotal) as daily_steps,
+    Weekday_Mon_To_Sun
+FROM
+    bellabeat_capstone.dbo.daily_steps
+    GROUP BY Weekday_Mon_To_Sun
+    ORDER BY 
+        CASE Weekday_Mon_To_Sun
+            WHEN 'Monday' THEN 1
+            WHEN 'Tuesday' THEN 2
+            WHEN 'Wednesday' THEN 3
+            WHEN 'Thursday' THEN 4
+            WHEN 'Friday' THEN 5
+            WHEN 'Saturday' THEN 6
+            ELSE 7  
+        END;
+```
+<p align="center">
+    <img width="427" alt="daily_steps_per_weekday" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/c9670e7b-ee7e-4dcc-9029-6171ba2a055a">
+</p>
+<p align="center">
+<em>Image from Tableau</em>
+</p>
+
+The graph results show that users sleep more on Sundays and are more active on Saturdays. On Mondays and Tuesdays, users take more steps, which suggests they are busy with work at the start of the week. As a result, users tend to sleep more on Wednesdays to recharge. On Saturdays, people go out and do their activities, while on Sundays, they relax at home and get more sleep.
+
+The graphs also reveal that users are not meeting the recommended 10,000 daily steps, which is expected since most users fall under the "Non-Low Active" category. Furthermore, users are not getting the recommended 8 hours of sleep.
+
+#### ➤Hourly Steps Throughout the Day:
+
+After analyzing users steps per day, I wanted to know what time are they more active:
+
+```SQL
+SELECT 
+    [Hour],
+    SUM(StepTotal) AS total_hourly_steps
+FROM 
+    bellabeat_capstone.dbo.hourly_steps
+    GROUP BY [Hour]
+    ORDER BY total_hourly_steps DESC;
+```
+<p align="center">
+    <img width="427" alt="total_steps_per_hour" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/384eb5d6-8345-4d37-9bc5-9ab7ba7368d5">
+</p>
+<p align="center">
+<em>Image from Tableau</em>
+</p>
+
+Upon analyzing the data, it is evident that users tend to be more active during specific hours of the day. The highest activity levels were observed between 8am to 7pm, which is when most people are awake and active. 
+
+Specifically, users showed a spike in steps during the lunch hours of 12pm to 2pm and in the evening from 5pm to 7pm. This could be attributed to users taking a break from work and going out for a quick walk or run during lunchtime. In the evening, users may be finishing up their work for the day and fitting in some exercise before heading home to call it a day.
+
+#### ➤Calories vs. Steps:
+
+Lastly, I wanted to determine if there’s any correlation between users steps and calories.
+
+``` SQL
+SELECT 
+    Id,
+    TotalSteps,
+    Calories,
+    ActivityDate
+FROM
+    bellabeat_capstone.dbo.daily_activity
+```
+<p align="center">
+    <img width="427" alt="Steps_vs_calories" src="https://github.com/anj-codes/Bellabeat_Capstone/assets/120025904/8b003313-58aa-43a6-8483-869b0e7b727c">
+</p>
+<p align="center">
+<em>Image from Tableau</em>
+</p>
+
+The plot clearly indicates a positive correlation between the number of steps taken and the calories burned. This comes as no surprise, as the more active we are, the more energy we burn.
+
+---
+### ✨Act Phase
+
+Bellabeat's wearable technology for women, which promotes a holistic approach and body positivity, empowers women to improve their overall health using data insights. Since they are focusing on a female audience, I suggest that Bellabeat should consider utilizing their own marketing and user data or collecting new data to gain more insights and trends. 
+
+FitBit Fitness Tracker Data has small number of participants. I suggest increasing the sample size as well because this would also help increase the confidence interval. Another limitation of the said datasets is it’s lack of demographic details of the users. This limitation makes it difficult for me to provide detailed recommendations.
+
+Even if the users willingly shared their information, we cannot also guarantee that there was no sampling bias in the datasets.
+
+Despite these limitations, I was able to see some useful trends in the FitBit Fitness Tracker Data that is being used for this case study.
+
+#### ➤Findings:
+- I found that about 12% of users are in “sometimes” or “moderate” when it come to wearing their FitBits tracker. While 88% of the users are consistently wearing it.
+- The analysis also shows that only 21% of users  are reaching the recommended 10,000 steps in a day.
+- Data showed that the users are not sleeping the recommended hours, which is 8 hours.
+- Lastly, it also shows that the most steps taken were during lunch hours or the 5pm - 7pm time frame.
+</p>
+
+#### ➤Recommendations:
+
+**Daily App Notification** - I’d recommend a daily notification at the start or end, depending on their preferences, of the day so that user’s can always add their tracker as part of their daily routine. 
+
+**Bed Time, Notification and Sleeping Techniques** - based on our analysis, the users lacks sleeps hours and it will be beneficial if they can set their tracker when they will sleep and notify them before their bed time. It will also be beneficial to add some tutorials on different sleeping techniques that can help them achieve in getting a good night sleep. 
+
+**Reward System** - We are aware that notifications will not motivate some people to be consistent and reach their heath goals. That’s why I’d recommend adding a reward system so that will push the users to reach their recommended daily steps and sleep. They can earn points when they meet a certain criteria and those points can be used for getting a premium membership access or a discount to other products.
+
+**Motivational / Reminder Quotes** - Aside from rewarding system, reminding them about their health goal through helpful quotes can also be beneficial to users. Mood swings can happen anytime and cannot be avoided. Quotes or short messages can be very helpful in keeping moods under control.
+</p>
+
+#### ➤Marketing Recommendations:
+
+- According to the data, 88% of the users consistently used their Fitbit tracker for 25-31 days during the data collection period, indicating a high level of engagement with the product. Based on this finding, I suggest that Bellabeat should market their products to customers who are already interested in wellness and fitness or those who already own a fitness tracker. The unique features of Bellabeat's products, which are specifically designed for women, could persuade customers to switch to their products for more targeted health insights.
+- Since users have mostly taken steps during 5pm - 7pm time frame, I’d suggest creating a campaign that encourage users to take a walk during the 5pm - 7pm for at least 30 minutes every day for a week, and reward those who complete the challenge with a special badge or discount on their Bellabeat purchase. We can incorporate this as part of a 30-Day challenge where users are encouraged to reach the daily recommended steps of 10,000.
+- Encourage users to prioritize their sleep by tracking their sleep with their Ivy Health Tracker and Bellabeat App. Set an online event where professional speakers can get to share their tips and advice on how to improve sleep quality. Then lucky Bellabeat users can get to win a product (can be another Bellabeat product or a sleeping product from partnered company) at the end of the online event.
+- One effective way for Bellabeat to increase brand awareness and drive product adoption is through partnering with fitness and wellness influencers and professionals. By collaborating with these individuals, Bellabeat can tap into their large social media followings and leverage user-generated content (UGC) to promote their Ivy Health Tracker and Bellabeat App.
+- Lastly, Bellabeat can add new content that they could share as blogs, infographics, or videos. The correlation between steps and calories burned highlights the potential benefits of using a fitness tracker. This information can then be used to make informed decisions regarding diet and exercise, leading to a more balanced and healthy lifestyle.
 
 
 
